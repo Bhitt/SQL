@@ -1,0 +1,44 @@
+show databases;
+	- shows the databases
+
+CREATE DATABASE <name>;
+	- creates a database with the given name
+	- do not include <>
+	- recommended to write name in snake case : database_name
+
+DROP DATABASE <name>;
+	- deletes the database
+	- be careful with this command
+
+USE <database name>;
+	- switches to a database to perform actions on
+	- useful for switching between databases
+
+SELECT database();
+	- tells you which database is being used
+	- returns null if no database is in use
+
+CREATE TABLE tablename
+	(
+		column_name datatype,
+		column_name datatype
+	);
+
+
+	- table names should be pluralized (ie 'cats')
+
+SHOW TABLES;
+	- shows the tables in the db
+	- does not show the information/details for the tables
+
+SHOW COLUMNS FROM <table name>;
+	- gives the description of a table's columns (headers)
+	- another method to achieve this is the command: DESC <table name>;
+
+DESC <table name>;
+	- similar to SHOW COLUMNS FROM <table name>;
+	- minor differences
+
+DROP TABLE <table name>;
+	- deletes a table
+	- be careful with this command

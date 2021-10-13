@@ -1,0 +1,78 @@
+SQL Syntax and Variations:
+	Implicit and explicit joins are shown below. These two statements are equivalent, and it's a
+	matter of personal preference which one you choose.
+
+	Explicit Join:
+		SELECT CourseName, TeacherName
+		FROM Courses INNER JOIN Teachers
+		ON Courses.TeacherID = Teachers.TeacherID
+
+
+	Implicit Join:
+		SELECT CourseName, TeacherName
+		FROM Courses, Teachers
+		WHERE Courses.TeacherID = Teachers.TeacherID
+
+Denormalized vs. Normalized Databases:
+	Normalized databases are designed to minimize redundancy, while denormalized databases are 
+	designed to optimize read time.
+
+SQL Statements:
+	
+	(Using an example database, * indicates a primary key)
+	Courses: CourseID*, CourseName, TeacherID
+	Teachers: TeacherID*, TeacherName
+	Students: StudentID*, StudentName
+	StudentCourses: CourseID*, StudentID*
+
+	Query 1: Get a list of all students and how many courses they are each enrolled in.
+
+	Sample Solution:
+		SELECT max(StudentName) as [StudentName], Students.StudentID,
+			   count(StudentCourses.CourseID) as [Count]
+		FROM Students LEFT JOIN StudentCourses
+		ON Students.StudentID = StudentCourses.StudentID
+		GROUP BY Students.StudentID
+
+
+	Query 2: Get a list of all teachers and how many students they each teach. If a teacher teaches
+		the same student in two courses, you should double count the student. Sort the list in
+		descending order of the number of students a teacher teaches.
+
+	Sample Solution:
+		SELECT TeacherName, isNull(StudentSize.Number, 0)
+		FROM Teachers LEFT JOIN
+			(SELECT TeacherID, count(StudentCourses.CourseID) AS [Number]
+			FROM Courses INNER JOIN StudentCourses
+			ON Courses.CourseID = StudentCourses.CourseID
+		ON Teachers.TeacherID = StudentSize.Teacher.ID
+		ORDER BY StudentSize.Number DESC
+
+Small Database Design:
+	Step 1: Handle Ambiguity (imagining an apartment rental agency: are there multiple locations, can
+	a person rent two separate apartments in the same building? etc)
+
+	Step 2: Define Core Objects (in this case it could be: Property, Building, Apartment, Tenant and
+	Manager).
+
+	Step 3: Analyze Relationships (one-to-many, many-to-many?)
+
+	Step 4: Investigative Actions (walk through common actions and understand how to store and 
+	retrieve the data)
+
+Tables:
+	A database is just a bunch of tables.
+	Tables hold a collection of related data.
+	Columns (or Headers) are the components of data.
+	Rows are the actual data in the table.
+
+Common Data Types:
+	INT : integer number signed
+	INT UNSIGNED : integer number unsigned (ie only positive values)
+	CHAR : a fixed length string
+	VARCHAR : a variable length string
+
+
+Execution Note:
+	Code won't run until you type the ';'
+	This is an easy piece to miss while giving instructions.

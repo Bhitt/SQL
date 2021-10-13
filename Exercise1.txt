@@ -1,0 +1,22 @@
+EXERCISE : DRAW A TWEETS TABLE
+
+Columns must include:
+	A username (max 15 characters)
+	The tweet content (max 140 characters)
+	Number of favorites
+
+
+
+					Tweets
+
+Username			Content				Favorites
+
+	|					|					|
+	v 					v 					v
+
+varchar(15)			varchar(140)        	int
+
+
+'coolguy'			'my first tweet'   		1
+'guitar_queen'		'I love music' 			10
+'lonely_heart'		'still looking 4 love'	0
