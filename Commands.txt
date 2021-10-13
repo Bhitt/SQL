@@ -1,22 +1,32 @@
 show databases;
 	- shows the databases
 
+-------------------------
+
 CREATE DATABASE <name>;
 	- creates a database with the given name
 	- do not include <>
 	- recommended to write name in snake case : database_name
 
+-------------------------
+
 DROP DATABASE <name>;
 	- deletes the database
 	- be careful with this command
+
+-------------------------
 
 USE <database name>;
 	- switches to a database to perform actions on
 	- useful for switching between databases
 
+-------------------------
+
 SELECT database();
 	- tells you which database is being used
 	- returns null if no database is in use
+
+-------------------------
 
 CREATE TABLE tablename
 	(
@@ -27,18 +37,93 @@ CREATE TABLE tablename
 
 	- table names should be pluralized (ie 'cats')
 
+-------------------------
+
 SHOW TABLES;
 	- shows the tables in the db
 	- does not show the information/details for the tables
+
+-------------------------
 
 SHOW COLUMNS FROM <table name>;
 	- gives the description of a table's columns (headers)
 	- another method to achieve this is the command: DESC <table name>;
 
+-------------------------
+
 DESC <table name>;
 	- similar to SHOW COLUMNS FROM <table name>;
 	- minor differences
 
+-------------------------
+
 DROP TABLE <table name>;
 	- deletes a table
 	- be careful with this command
+
+-------------------------
+
+INSERT INTO <table name> 
+	(
+	<column name>, 
+	<column name>
+	)
+VALUES	(
+		<value>,
+		<value>
+		);
+
+
+	- inserts values into a table
+	- the order matters
+	- can insert multiple values at the same time:
+		VALUES (<value>,<value>),(<value>,<value>),(<value>,<value>);
+
+-------------------------
+
+SELECT * FROM <table name>;
+	
+	- shows all data from table
+
+-------------------------
+
+SHOW WARNINGS;
+
+	- will alert you to any problems
+	- an example would be if an inserted string was truncated to a smaller size and data was lost.
+	- another example is trying to store a string in an INT
+
+-------------------------
+
+	(option)
+NOT NULL
+	- used when creating a table, listed after the data type.
+	- makes the data required, will use the default if no data is given instead of NULL
+	- For example:
+		CREATE TABLE cats (name VARCHAR(100) NOT NULL, age INT NOT NULL);
+
+-------------------------
+
+	(option)
+DEFAULT <new default value>
+	- used when creating a table, sets a new default value for the data
+	- For example:
+		CREATE TABLE cats (name VARCHAR(100) DEFAULT 'no name provided', age INT DEFAULT 99);
+
+-------------------------
+
+	(option)
+PRIMARY KEY (<column name>)
+	- used to keep data entry unique (usernames, id, etc)
+	- For example:
+		CREATE TABLE cats (cat_id INT NOT NULL, name VARCHAR(100), PRIMARY KEY (cat_id));
+	- Can also be specified as such:
+		CREATE TABLE cats (cat_id INT NOT NULL PRIMARY KEY, name VARCHAR(100));
+
+-------------------------
+
+	(option)
+AUTO_INCREMENT
+	- used for pieces of data that are automated (such as id)
+	- For example:
+		CREATE TABLE cats (cat_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(100));

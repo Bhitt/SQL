@@ -76,3 +76,17 @@ Common Data Types:
 Execution Note:
 	Code won't run until you type the ';'
 	This is an easy piece to miss while giving instructions.
+
+NOT NULL:
+	If you want a piece of data to be required, you specify NOT NULL on the table creation.
+	For example:
+		CREATE TABLE cats (name VARCHAR(100) NOT NULL, age INT NOT NULL);
+	Any insertions without the required data will use the specified default value.
+	If NOT NULL is used in combination with DEFAULT, the insertion will not allow a purposeful NULL
+		value. For example, it wouldn't allow: INSERT INTO cats (name,age) VALUES ('Cali', NULL);
+
+PRIMARY KEY:
+	Primary key is used to specify when items need to be unique. For instance, you can have 3 cats
+		that share the same name. To grab a specific cat, you would use something like a cat_id 
+		which would be specified as a primary key. Every cat_id will be unique if it is specified
+		as a primary key.
