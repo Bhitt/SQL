@@ -182,3 +182,24 @@ AUTO_INCREMENT
 	- used for pieces of data that are automated (such as id)
 	- For example:
 		CREATE TABLE cats (cat_id INT NOT NULL AUTO_INCREMENT, name VARCHAR(100));
+
+
+-------------------------
+
+source <file>;
+	- opens and runs an SQL file
+	- make sure the path is correct (and include filetype .sql)
+	- if you want to run mysql cli from another directory, first path to the desired directory, then
+	run the command: 
+		mysql -u userName -p
+	and enter the password when prompted. (Note: you have to have added the MYSQL bin directory path
+	to the PATH environment variable).
+
+-------------------------
+
+SELECT
+	CONCAT (<column> , ' ', <column>) FROM <table name>;
+		- returns items concatenated together
+		- For example:
+			SELECT
+				CONCAT(author_fname, ' ', author_lname) FROM books;

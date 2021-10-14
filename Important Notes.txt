@@ -96,3 +96,14 @@ Aliases:
 	For example:
 		SELECT name AS 'cat name' FROM cats;
 	The above example can help clarify in an instance where you are also fetching name FROM dogs.
+
+Command Line Interface:
+	- if you want to run mysql cli from another directory, first path to the desired directory, then
+	run the command: 
+		mysql -u userName -p
+	and enter the password when prompted. (Note: you have to have added the MYSQL bin directory path
+	to the PATH environment variable).
+
+Useful MYSQL string functions:
+	CONCAT (<column>,'text',<column>,' ', <column>,...)
+		- combines data (columns, text, spaces, etc.)
