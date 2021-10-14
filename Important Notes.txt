@@ -90,3 +90,9 @@ PRIMARY KEY:
 		that share the same name. To grab a specific cat, you would use something like a cat_id 
 		which would be specified as a primary key. Every cat_id will be unique if it is specified
 		as a primary key.
+
+Aliases:
+	Aliases are used to rename data.
+	For example:
+		SELECT name AS 'cat name' FROM cats;
+	The above example can help clarify in an instance where you are also fetching name FROM dogs.

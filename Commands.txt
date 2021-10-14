@@ -68,10 +68,11 @@ INSERT INTO <table name>
 	<column name>, 
 	<column name>
 	)
-VALUES	(
+VALUES	
+	(
 		<value>,
 		<value>
-		);
+	);
 
 
 	- inserts values into a table
@@ -84,6 +85,60 @@ VALUES	(
 SELECT * FROM <table name>;
 	
 	- shows all data from table
+
+-------------------------
+
+SELECT <column name>, <column name> FROM <table name>;
+	
+	- gives back the data from one or more specific columns
+	- results are returned in the order that was requested
+
+-------------------------
+
+UPDATE <table name> SET <list of changes> WHERE <items to change>;
+
+	- updates selected data with changes
+	- For example:
+		UPDATE cats SET age=14
+		WHERE name='Misty';
+	- The above changes any cat named 'Misty' to have the age 14
+	- A good habit is to first select the necessary data before updating to make sure you are 
+		updating the correct data.
+
+-------------------------
+
+DELETE FROM <table name> WHERE <items to delete>;
+	
+	- delete selected data
+	- For example:
+		DELETE FROM cats WHERE name='egg';
+	- The above removes a cat named 'egg' from the table
+	- Similar to Update, a good habit is to first make sure you select the right data, then do the
+		delete.
+
+
+DELETE FROM <table name>;
+	
+	- just deletes the entries in the table without removing the table
+
+-------------------------
+
+WHERE
+	
+	- specifies what type of data you are interacting with
+	- allows you to be more specific during queries, updates, and deletes
+	- For example:
+		SELECT * FROM cats WHERE name='Snowball';
+	- by default WHERE is case-insensitive
+
+-------------------------
+
+AS
+	
+	- renames the data that is fetched
+	- For example:
+		SELECT name AS 'cat name', breed AS 'kitty breed' FROM cats;
+	- The above example would list the column as 'cat name' instead of 'name'.
 
 -------------------------
 
