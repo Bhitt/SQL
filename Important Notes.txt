@@ -107,3 +107,17 @@ Command Line Interface:
 Useful MYSQL string functions:
 	CONCAT (<column>,'text',<column>,' ', <column>,...)
 		- combines data (columns, text, spaces, etc.)
+	SUBSTRING (<string>, startIndex, endIndex)
+		- returns the substring
+		- indexing starts at 1 instead of 0
+		- can use negative indexing to start at the end of the string
+	REPLACE(<string>, <substring>, <replacement>)
+		- replaces a part of the query with a specified replacement
+	REVERSE(<string>)
+		- reverses the query
+	CHAR_LENGTH(<string>)
+		- counts the characters in the string
+	UPPER(<string>)
+		- converts to upper case
+	LOWER(<string>)
+		- converts to lower case

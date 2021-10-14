@@ -203,3 +203,78 @@ SELECT
 		- For example:
 			SELECT
 				CONCAT(author_fname, ' ', author_lname) FROM books;
+
+-------------------------
+
+SELECT
+	SUBSTRING(<string>, startIndex, endIndex);
+		- returns the substring from startIndex to endIndex
+		- NOTE: MYSQL indexing starts at 1 not 0
+		- For example:
+			SELECT
+				SUBSTRING('Hello World', 1, 5);
+		- The above returns 'Hello'
+		- Another use:
+			SELECT
+				SUBSTRING('Hello World',7);
+		- The above returns 'World'
+		- Substring can also use negative indexing to start at the end
+		- For example: 
+			SELECT 
+				SUBSTRING('Hello World', -3);
+		- The above returns 'rld'
+
+-------------------------
+
+SELECT
+	REPLACE(<string>, <substring>, <replacement>);
+		- returns the string with replacements
+		- For example:
+			SELECT
+				REPLACE('Hello World', 'Hell', '%$#@');
+		- The above returns '%$#@o World'
+		- This only affects the query output, not the data itself
+		- Replace is case-sensitive
+
+-------------------------
+
+SELECT
+	DISTINCT <query>, <query>, ... FROM <table name>;
+		- removes duplicates
+		- can work on a combination of data (such as distinct first and last names)
+		- For example:
+			SELECT 
+				DISTINCT author_fname, author_lname FROM books;
+
+-------------------------
+
+SELECT
+	<query> FROM <table name> ORDER BY <column name>;
+		- orders the query output
+		- ascending by default
+		- descending is accomplished with <column name> DESC
+		- For example:
+			SELECT title FROM books ORDER BY title;
+
+-------------------------
+
+SELECT
+	<query> FROM <table name> LIMIT <amount>;
+		- returns a limited amount of items
+		- For example:
+			SELECT title FROM books LIMIT 3;
+		- Indexing starts at 0
+		- You can specify a starting index and then the limit length
+		- The limit length (or amount) can be a very large number to grab all
+
+-------------------------
+
+SELECT
+	<query> FROM <table name> WHERE <column name> LIKE <regex>;
+		- uses regex to narrow down a search
+		- For example:
+			SELECT title FROM books WHERE title LIKE '%the%';
+		- The above returns book titles with 'the' somewhere in it.
+		- '%' acts as a wildcard for anything
+		- '_' acts as a wildcard for anything that is one character in length (you can use multiple
+		underscores to match a specific length)
