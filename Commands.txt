@@ -197,84 +197,135 @@ source <file>;
 
 -------------------------
 
-SELECT
-	CONCAT (<column> , ' ', <column>) FROM <table name>;
-		- returns items concatenated together
-		- For example:
-			SELECT
-				CONCAT(author_fname, ' ', author_lname) FROM books;
+CONCAT (<column> , ' ', <column>) FROM <table name>;
+	- returns items concatenated together
+	- For example:
+			CONCAT(author_fname, ' ', author_lname) FROM books;
 
 -------------------------
 
-SELECT
-	SUBSTRING(<string>, startIndex, endIndex);
-		- returns the substring from startIndex to endIndex
-		- NOTE: MYSQL indexing starts at 1 not 0
-		- For example:
-			SELECT
-				SUBSTRING('Hello World', 1, 5);
-		- The above returns 'Hello'
-		- Another use:
-			SELECT
-				SUBSTRING('Hello World',7);
-		- The above returns 'World'
-		- Substring can also use negative indexing to start at the end
-		- For example: 
-			SELECT 
-				SUBSTRING('Hello World', -3);
-		- The above returns 'rld'
+SUBSTRING(<string>, startIndex, endIndex);
+	- returns the substring from startIndex to endIndex
+	- NOTE: MYSQL indexing starts at 1 not 0
+	- For example:
+			SUBSTRING('Hello World', 1, 5);
+	- The above returns 'Hello'
+	- Another use:
+			SUBSTRING('Hello World',7);
+	- The above returns 'World'
+	- Substring can also use negative indexing to start at the end
+	- For example: 
+			SUBSTRING('Hello World', -3);
+	- The above returns 'rld'
 
 -------------------------
 
-SELECT
-	REPLACE(<string>, <substring>, <replacement>);
-		- returns the string with replacements
-		- For example:
-			SELECT
-				REPLACE('Hello World', 'Hell', '%$#@');
-		- The above returns '%$#@o World'
-		- This only affects the query output, not the data itself
-		- Replace is case-sensitive
+REPLACE(<string>, <substring>, <replacement>);
+	- returns the string with replacements
+	- For example:
+			REPLACE('Hello World', 'Hell', '%$#@');
+	- The above returns '%$#@o World'
+	- This only affects the query output, not the data itself
+	- Replace is case-sensitive
 
 -------------------------
 
-SELECT
-	DISTINCT <query>, <query>, ... FROM <table name>;
-		- removes duplicates
-		- can work on a combination of data (such as distinct first and last names)
-		- For example:
-			SELECT 
-				DISTINCT author_fname, author_lname FROM books;
+DISTINCT <query>, <query>, ... FROM <table name>;
+	- removes duplicates
+	- can work on a combination of data (such as distinct first and last names)
+	- For example:
+			DISTINCT author_fname, author_lname FROM books;
 
 -------------------------
 
-SELECT
-	<query> FROM <table name> ORDER BY <column name>;
-		- orders the query output
-		- ascending by default
-		- descending is accomplished with <column name> DESC
-		- For example:
-			SELECT title FROM books ORDER BY title;
+<query> FROM <table name> ORDER BY <column name>;
+	- orders the query output
+	- ascending by default
+	- descending is accomplished with <column name> DESC
+	- For example:
+		SELECT title FROM books ORDER BY title;
 
 -------------------------
 
-SELECT
-	<query> FROM <table name> LIMIT <amount>;
-		- returns a limited amount of items
-		- For example:
-			SELECT title FROM books LIMIT 3;
-		- Indexing starts at 0
-		- You can specify a starting index and then the limit length
-		- The limit length (or amount) can be a very large number to grab all
+<query> FROM <table name> LIMIT <amount>;
+	- returns a limited amount of items
+	- For example:
+		SELECT title FROM books LIMIT 3;
+	- Indexing starts at 0
+	- You can specify a starting index and then the limit length
+	- The limit length (or amount) can be a very large number to grab all
 
 -------------------------
 
-SELECT
-	<query> FROM <table name> WHERE <column name> LIKE <regex>;
-		- uses regex to narrow down a search
-		- For example:
-			SELECT title FROM books WHERE title LIKE '%the%';
-		- The above returns book titles with 'the' somewhere in it.
-		- '%' acts as a wildcard for anything
-		- '_' acts as a wildcard for anything that is one character in length (you can use multiple
-		underscores to match a specific length)
+<query> FROM <table name> WHERE <column name> LIKE <regex>;
+	- uses regex to narrow down a search
+	- For example:
+		SELECT title FROM books WHERE title LIKE '%the%';
+	- The above returns book titles with 'the' somewhere in it.
+	- '%' acts as a wildcard for anything
+	- '_' acts as a wildcard for anything that is one character in length (you can use multiple
+	underscores to match a specific length)
+
+-------------------------
+
+COUNT(<query>) FROM <table name>;
+	- returns the number of items
+	- COUNT(DISTINCT <query>) : will return the count without duplicates
+	- Some Examples:
+		SELECT COUNT(*) FROM books; // returns the count of all books
+
+		SELECT COUNT(author_fname) FROM books; // returns the count of first names (including 
+		counting the duplicates)
+
+		SELECT COUNT(DISTINCT author_lname) FROM books; // returns the count of last names 
+		without counting duplicates)
+
+-------------------------
+
+SELECT <query> FROM <table name> GROUP BY <grouping method>;
+	- groups the information into specified groups
+	- for instance, you can group items by the same author
+	- meant to be used in combination with other aggregate functions
+	- For example:
+		SELECT released_year, COUNT(*) FROM books GROUP BY released_year;
+	- The above returns the count of books released for each year
+
+-------------------------
+
+MIN(<query>) FROM <table name>;
+	- returns the minimum value from the query
+
+MAX(<query>) FROM <table name>;
+	- returns the maximum value from the query
+
+	- use either MIN or MAX in combination with GROUP BY for better queries
+	- For Example:
+		SELECT 
+			author_fname, author_lname, MAX(pages) 
+		FROM books
+		GROUP BY author_lname,
+				 author_fname;
+	- The above returns a list of authors with the longest book (by page count) that they've written
+
+-------------------------
+
+SUM(<query>) FROM <table name>;
+	- returns the sum of the values queried
+	- For exmaple:
+		SELECT author_fname,
+		       author_lname,
+		       Sum(pages)
+		FROM books
+		GROUP BY
+		    author_lname,
+		    author_fname;
+	- The above returns the sum of pages written by each author across their books
+
+-------------------------
+AVG(<query>) FROM <table name>;
+	- returns the average of the queried values
+	- For Example:
+		SELECT released_year, AVG(stock_quantity)
+		FROM books
+		GROUP BY released_year;
+	- The above returns the release year and the average stock quantity for that year
