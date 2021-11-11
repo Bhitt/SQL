@@ -350,3 +350,10 @@ DAYOFYEAR(date/datetime)
 	- takes into account leap years
 DATEFORMAT(date/datetime, '%m%d%Y')
 	- formats the given date and returns it according to specifications
+DATEDIFF(date/datetime, date/datetime)
+	- finds the amount of days between the two given dates
+DATE_ADD(date/datetime, INTERVAL expr unit)
+	- adds the specified interval of time to the given date
+	- for example you could add 1 month to the given date
+DATE +- INTERVAL expr unit
+	- same thing as above

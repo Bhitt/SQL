@@ -96,6 +96,10 @@ Common Data Types:
 		- format 'YYYY-MM-DD HH:MM:SS'
 		- NOW() can be used to fetch the current datetime
 
+	TIMESTAMP :
+		- same as DATETIME but smaller memory and smaller range
+		- useful for comments
+
 Execution Note:
 	Code won't run until you type the ';'
 	This is an easy piece to miss while giving instructions.
