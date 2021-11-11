@@ -70,8 +70,31 @@ Common Data Types:
 	INT : integer number signed
 	INT UNSIGNED : integer number unsigned (ie only positive values)
 	CHAR : a fixed length string
+		- faster
+		- will truncate strings that are too long
+		- will pad strings that are too short, then remove padding when retrieved
 	VARCHAR : a variable length string
-
+		- you can specify a max characterss
+	DECIMAL(M, D) : 
+		- M : max digits total (precision, range from 1 to 65)
+		- D : number of digits to the right of decimal (0 to 30)
+	FLOAT :
+		- precise up to ~7 digits
+		- this is less than c#, c++, java, etc
+		- 4 bytes of memory
+	DOUBLE :
+		- precise up to ~15 digits
+		- this is less than c#, c++, java, etc
+		- 8 bytes of memory
+	DATE : date but no time
+		- format 'YYYY-MM-DD'
+		- CURDATE() can be used to fetch the current date
+	TIME : time but no date
+		- format 'HH:MM:SS'
+		- CURTIME() can be used to fetch the current time
+	DATETIME :
+		- format 'YYYY-MM-DD HH:MM:SS'
+		- NOW() can be used to fetch the current datetime
 
 Execution Note:
 	Code won't run until you type the ';'
@@ -121,3 +144,4 @@ Useful MYSQL string functions:
 		- converts to upper case
 	LOWER(<string>)
 		- converts to lower case
+

@@ -322,6 +322,7 @@ SUM(<query>) FROM <table name>;
 	- The above returns the sum of pages written by each author across their books
 
 -------------------------
+
 AVG(<query>) FROM <table name>;
 	- returns the average of the queried values
 	- For Example:
@@ -329,3 +330,23 @@ AVG(<query>) FROM <table name>;
 		FROM books
 		GROUP BY released_year;
 	- The above returns the release year and the average stock quantity for that year
+
+-------------------------
+
+CURDATE()
+	- gives current date
+CURTIME()
+	- gives current time
+NOW()
+	- gives current datetime
+DAY(date/datetime)
+	- extracts the day
+DAYNAME(date/datetime)
+	- extracts the day's name (ie Thursday)
+DAYOFWEEK(date/datetime)
+	- extracts the day within range 1-7
+DAYOFYEAR(date/datetime)
+	- extracts the day within range 1-365
+	- takes into account leap years
+DATEFORMAT(date/datetime, '%m%d%Y')
+	- formats the given date and returns it according to specifications
