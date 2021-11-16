@@ -149,3 +149,79 @@ Useful MYSQL string functions:
 	LOWER(<string>)
 		- converts to lower case
 
+Logical Operators :
+
+	NOT LIKE <regex> : Doesn't match given regular expression
+
+	&& is written as AND
+
+	BETWEEN <expr> AND <expr> : returns values between the specified expressions
+
+	NOT BETWEEN : gets everything outside of the range
+
+	WHERE <column name> IN (<value>, <value>, <value>) : looks for matches to the multiple values, 
+		rather than writing them all out
+		- for example: 
+
+		SELECT title, author_lname 
+			FROM books
+				WHERE author_lname='Carver' OR
+      					author_lname='Lahiri' OR
+      					author_lname='Smith';
+
+      			{the above is now written as:}
+ 
+		SELECT title, author_lname FROM books
+		WHERE author_lname IN ('Carver', 'Lahiri', 'Smith');
+
+	Switch example : 
+		SELECT title, stock_quantity,
+		    CASE 
+		        WHEN stock_quantity BETWEEN 0 AND 50 THEN '*'
+		        WHEN stock_quantity BETWEEN 51 AND 100 THEN '**'
+		        ELSE '***'
+		    END AS STOCK
+		FROM books;
+
+Foreign Keys : A way to reference other tables for relationships.
+	Example: 
+		CREATE TABLE customers(
+		    id INT AUTO_INCREMENT PRIMARY KEY,
+		    first_name VARCHAR(100),
+		    last_name VARCHAR(100),
+		    email VARCHAR(100)
+		);
+		CREATE TABLE orders(
+		    id INT AUTO_INCREMENT PRIMARY KEY,
+		    order_date DATE,
+		    amount DECIMAL(8,2),
+		    customer_id INT,
+		    FOREIGN KEY(customer_id) REFERENCES customers(id)
+		);
+	This relationship is one-to-many since a customer can have more than one order but each order
+	can only have one customer.
+
+Joins:
+	
+	Implicit Cross Join: 
+		SELECT * FROM <tablename>, <tablename>;
+
+		Cross joins are basically Cartesian products of the rows from the listed tables. So table
+		1 rows multiplied by table 2 rows.... and so on.
+
+	Implicit Inner Join:
+		SELECT first_name, last_name, order_date, amount
+		FROM customers, orders 
+		    WHERE customers.id = orders.customer_id;
+
+		Inner joins are similar to the center of a venn diagram. It returns the items that match
+		between tables.
+
+	Explicit Inner Join:
+		SELECT first_name, last_name, order_date, amount 
+		FROM customers
+		JOIN orders
+		    ON customers.id = orders.customer_id;
+
+		An explicit inner join is the same as an implicit inner join except that it is more legible
+		and follows convention. It is better practice to use explicit joins.
