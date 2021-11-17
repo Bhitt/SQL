@@ -357,3 +357,14 @@ DATE_ADD(date/datetime, INTERVAL expr unit)
 	- for example you could add 1 month to the given date
 DATE +- INTERVAL expr unit
 	- same thing as above
+
+-------------------------
+
+ON DELETE CASCADE : 
+	- deletes the items related to the item being deleted. For instance, if you delete a customer 
+	(which has a reference to the order table) then it will also delete any orders associated with
+	that customer.
+
+	FOREIGN KEY(customer_id)
+		REFERENCES customers(id)
+		ON DELETE CASCADE
