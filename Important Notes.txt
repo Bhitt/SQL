@@ -250,3 +250,69 @@ Joins:
 		Same as left join except now it selects everything from B along with the intersection of 
 		A & B. May be easier to just stick to left joins only.
 
+Triggers :
+	- run code when a particular event happens
+
+	- some SYNTAX 
+
+	trigger_time			trigger_event		table_name
+		BEFORE					INSERT 				photos
+		AFTER					UPDATE 				users
+								DELETE 				etc
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- example trigger, fires when trying to create a user younger than 18
+
+	DELIMETER $$
+
+		CREATE TRIGGER must_be_adult
+			BEFORE INSERT ON users FOR EACH ROW
+			BEGIN
+				IF NEW.age < 18
+				THEN
+					SIGNAL SQLSTATE '45000'
+						SET MESSAGE_TEXT = 'Must be an adult!';
+				END IF;
+			END;
+	$$
+
+	DELIMETER ;
+
+	- note : SQLSTATE '45000' is used for unhandled user-defined exceptions, so use this for 
+	errors that are dev defined.
+	- note : delimiter lines are used to override sql delimeter (would normally stop after first ;)
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- example trigger 2, fires when a user tries to follow themself
+
+	DELIMETER $$
+
+		CREATE TRIGGER cannot_follow_self
+			BEFORE INSERT ON follows FOR EACH ROW
+			BEGIN
+				IF NEW.follower_id = NEW.followee_id
+				THEN
+					SIGNAL SQLSTATE '45000'
+						SET MESSAGE_TEXT = 'Cannot follow yourself';
+				END IF;
+			END;
+	$$
+
+	DELIMETER ;
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	- example trigger 3, log when someone unfollows
+
+	DELIMETER $$
+
+	CREATE TRIGGER log_unfollow
+		AFTER DELETE ON follows FOR EACH ROW
+		BEGIN
+			INSERT INTO unfollows
+			SET 
+			follower_id = OLD.follower_id,
+			followee_id = OLD.followee_id;
+		END;
+	$$
+
+	DELIMETER ;
