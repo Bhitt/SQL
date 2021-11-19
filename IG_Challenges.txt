@@ -33,3 +33,56 @@ WHERE photos.id IS NULL;
 
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 4 - find the photo with the most likes and its contributor
+
+SELECT
+	username,
+	photos.id,
+	photos.image_url,
+	COUNT(*) AS total
+FROM photos
+INNER JOIN likes
+	ON likes.photo_id = photos.id
+INNER JOIN users
+	ON photos.user_id = users.id
+GROUP BY photos.id
+ORDER BY total DESC
+LIMIT 1;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 5 - how many times does the average user post a photo
+
+SELECT (
+	(SELECT COUNT(*) FROM photos)
+	/
+	(SELECT COUNT(*) FROM users)
+) AS avg;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 6 - what are the top 5 most popular hashtags
+
+SELECT
+	tag_name,
+	COUNT(*) AS 'total tags'
+FROM tags
+INNER JOIN photo_tags
+	ON photo_tags.tag_id = tags.id
+GROUP BY id
+ORDER BY id DESC
+LIMIT 5;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 7 - find users who have liked every single photo on the site (bots)
+
+SELECT
+	username,
+	COUNT(*) AS number_likes
+FROM users
+INNER JOIN likes
+	ON users.id = likes.user_id
+GROUP BY likes.user_id
+HAVING number_likes = (SELECT COUNT(*) FROM photos);
