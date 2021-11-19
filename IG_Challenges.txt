@@ -1,0 +1,35 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 1 - find the 5 oldest users
+
+SELECT *
+FROM users
+ORDER BY created_at
+LIMIT 5;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 2 - what day of the week do most users register on?
+
+SELECT
+	DAYNAME(created_at) AS Day,
+	COUNT(*) AS Total
+FROM users
+GROUP BY Day
+ORDER BY Total DESC
+LIMIT 2;
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+CHALLENGE 3 - find the users who have never posted a photo
+
+SELECT
+	username,
+	image_url
+FROM users
+LEFT JOIN photos
+	ON users.id = photos.user_id
+WHERE photos.id IS NULL;
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
