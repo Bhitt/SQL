@@ -368,3 +368,13 @@ ON DELETE CASCADE :
 	FOREIGN KEY(customer_id)
 		REFERENCES customers(id)
 		ON DELETE CASCADE
+
+-------------------------
+
+SHOW TRIGGERS;
+	- outputs the active triggers
+
+DROP TRIGGER <trigger name>;
+	- removes the trigger
+
+	
