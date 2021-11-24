@@ -376,5 +376,3 @@ SHOW TRIGGERS;
 
 DROP TRIGGER <trigger name>;
 	- removes the trigger
-
-	
