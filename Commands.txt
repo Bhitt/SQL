@@ -376,3 +376,30 @@ SHOW TRIGGERS;
 
 DROP TRIGGER <trigger name>;
 	- removes the trigger
+
+-------------------------
+
+RANK AND ROW NUMBER:
+
+	SELECT
+		v,
+		ROW_NUMBER() OVER (ORDER BY v) AS "row_number",
+		RANK() 		 OVER (ORDER BY v) AS "rank",
+		DENSE_RANK() OVER (ORDER BY v) AS "dense_rank"
+	FROM <column name>
+	ORDER BY v
+
+	+---+------------+------+------------+
+	| V | ROW_NUMBER | RANK | DENSE_RANK |
+	+---+------------+------+------------+
+	| a |          1 |    1 |          1 |
+	| a |          2 |    1 |          1 |
+	| a |          3 |    1 |          1 |
+	| b |          4 |    4 |          2 |
+	| c |          5 |    5 |          3 |
+	| c |          6 |    5 |          3 |
+	| d |          7 |    7 |          4 |
+	| e |          8 |    8 |          5 |
+	+---+------------+------+------------+
+
+-------------------------
